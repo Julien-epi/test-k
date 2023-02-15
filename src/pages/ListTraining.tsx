@@ -13,7 +13,7 @@ export default function ListTraining() {
   useEffect(() => {
     setTraining(dataTraining);
     relistTable();
-  }, [dataTraining]);
+  }, []);
 
   function relistTable() {
     setTraining([...training].sort((a, b) => a.status.localeCompare(b.status)));
@@ -53,28 +53,24 @@ export default function ListTraining() {
             </tr>
           </thead>
           <tbody>
-            {training.map((item, index) => {
-              return (
-                <tr key={index}>
-                  <td className="h-16 p-2 border">{item.title}</td>
-                  <td className="h-16 p-2 border">{item.category}</td>
-                  <td className="h-16 p-2 border">{item.status}</td>
-                  <td className="h-16 p-2 border">
-                    {item.status === "A commencer" ||
-                    item.status === "Défaite" ? (
-                      <button
-                        className="m-2 p-2 rounded-xl bg-red-600 hover:bg-red-700 text-white font-bold"
-                        onClick={() => handleClick(index)}
-                      >
-                        GO
-                      </button>
-                    ) : (
-                      ""
-                    )}
-                  </td>
-                </tr>
-              );
-            })}
+            {training.map((item, index) => (
+              <tr key={index}>
+                <td className="h-16 p-2 border">{item.title}</td>
+                <td className="h-16 p-2 border">{item.category}</td>
+                <td className="h-16 p-2 border">{item.status}</td>
+                <td className="h-16 p-2 border">
+                  {(item.status === "A commencer" ||
+                    item.status === "Défaite") && (
+                    <button
+                      className="m-2 p-2 rounded-xl bg-red-600 hover:bg-red-700 text-white font-bold"
+                      onClick={() => handleClick(index)}
+                    >
+                      GO
+                    </button>
+                  )}
+                </td>
+              </tr>
+            ))}
           </tbody>
         </table>
       </div>
